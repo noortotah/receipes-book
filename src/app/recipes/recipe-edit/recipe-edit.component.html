@@ -1,0 +1,88 @@
+<div class="row">
+    <div class="col">
+
+        <form [formGroup]="recipeForm" (ngSubmit)="saveForm()">
+            <div class="row">
+                <div class="ml-auto">
+                    <button class="btn btn-success mr-1"
+                            type="submit"
+                            [disabled]="recipeForm.invalid">Save</button>
+                    <button class="btn btn-danger" type="button" (click)="back()">Cancel</button>
+
+                </div>
+
+            </div>
+
+            <div class="form-group row mt-3">
+                <label for="name" class="col-sm-3 col-form-label">Name</label>
+                <input name="name" class="form-control col-sm-9" type="text" formControlName="name">
+                <small *ngIf="recipeForm.get('name').invalid && recipeForm.get('name').touched " class="text-danger">This field is required</small>
+            </div>
+
+            <div class="form-group row">
+                <label for="image" class="col-sm-3 col-form-label">Image URL</label>
+                <input  id="image"
+                        class="form-control col-sm-9"
+                        type="text"
+                        formControlName="imagePath"
+                        #image>
+            </div>
+
+            <div class="row form-group">
+                <img class="img-fluid" [src]="image.value" alt="">
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea name="description" class="form-control" rows="6" formControlName="description"></textarea>
+            </div>
+
+            <label for="">Ingredients</label>
+            <div *ngIf="ingredients.length" formArrayName="ingredients">
+
+                <div *ngFor="let ingredient of recipeForm.get('ingredients').controls; index as i">
+
+                    <div [formGroupName]="i" class="row mb-2">
+                        <div class="col-8">
+                            <input name="ingredientName" placeholder="Ingredient" class="form-control" type="text"
+                                formControlName="name">
+                        </div>
+                        <div class="col-2">
+                            <input name="amount" placeholder="1" class="form-control" type="number"
+                                formControlName="amount">
+                        </div>
+                        <div class="col-2">
+                            <button type="button" class="btn btn-danger btn-block"
+                                 (click)="removeIngredientFromRecipe(i)">X</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div *ngIf="!ingredients.length">
+                <p class="text-muted text-center">No Ingredients for this Recipe</p>
+            </div>
+
+
+        </form>
+
+        <hr>
+            <div class="form-group">
+
+                <div class="row mb-2">
+                    <div class="col-8">
+                        <input name="name" [(ngModel)]="newIngredient.name" placeholder="Ingredient" class="form-control" type="text">
+                    </div>
+                    <div class="col-2">
+                        <input name="amount" [(ngModel)]="newIngredient.amount" placeholder="1" class="form-control" type="number">
+                    </div>
+                    <div class="col-2">
+                        <button type="button" class="btn btn-success btn-block"
+                         [disabled]="newIngredient.amount < 1 || !newIngredient.name " (click)="addNewIngredientToForm()">Add</button>
+                    </div>
+                </div>
+            </div>
+
+
+    </div>
+</div>

@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+
+      <div class="login-form d-flex flex-column justify-content-center align-items-center">
+        <div class="col-6">
+          <div *ngIf="error" class="alert alert-danger" role="alert">
+            <strong>{{error}}</strong>
+          </div>
+
+          <div *ngIf="isLoading" class="text-center mt-3">
+            <app-loading-spinner></app-loading-spinner>
+          </div>
+          <form class="" #loginForm="ngForm" (ngSubmit)="submitLoginForm(loginForm)" *ngIf="!isLoading">
+            <div class="form-group">
+              <label for="emailHelpId">Email</label>
+              <input type="email" class="form-control" aria-describedby="emailHelpId" placeholder="example@example.com"
+                name="email" ngModel required email #email="ngModel">
+              <small *ngIf="email.invalid && email.touched" id="emailHelpId" class="form-text text-danger">Check your
+                email again</small>
+
+            </div>
+            <div class="form-group">
+              <label for="">Password</label>
+              <input type="password" class="form-control" placeholder="******" name="password" ngModel required
+                minlength="6" #password="ngModel">
+              <small *ngIf="password.invalid && password.touched" id="passwordHelpId"
+                class="form-text text-danger">Check your password again</small>
+
+            </div>
+
+            <button type="submit" class="btn btn-primary mr-1"
+              [disabled]="loginForm.invalid">{{ isLoginMode ? 'Login' : 'Sign Up' }}</button>
+            <button type="button" class="btn btn-info" (click)="switchMode()">Go To
+              {{ isLoginMode ?  'Sign Up' :'Login'  }}</button>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

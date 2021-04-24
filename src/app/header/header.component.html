@@ -1,0 +1,32 @@
+
+<nav class="navbar navbar-expand-sm navbar-nav navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" routerLink="/">Recipe Book</a>
+        <button class="navbar-toggler" data-target="#my-nav" data-toggle="collapse" aria-controls="my-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="my-nav" class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+               <li class="nav-item" routerLinkActive="active"><a class="nav-link" [routerLink]="['/recipes']"  *ngIf="isAuthenticated">Recipes</a></li>
+                <li class="nav-item" routerLinkActive="active"><a class="nav-link" [routerLink]="['/shopping-list']"  *ngIf="isAuthenticated">Shopping List</a></li>
+
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"  *ngIf="!isAuthenticated" ><a class="nav-link" [routerLink]="['/auth']">Login</a></li>
+                <li class="nav-item dropdown" appDropdown  *ngIf="isAuthenticated" >
+                    <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown">
+                        Manage
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" (click)="saveData()">Save Data</a>
+                        <a class="dropdown-item" (click)="fetchRecipes()">Fetch Data</a>
+                        <a class="dropdown-item" (click)="logout()">LogOut</a>
+
+                    </div>
+                    </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+

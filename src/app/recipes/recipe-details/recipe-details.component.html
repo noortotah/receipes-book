@@ -1,0 +1,37 @@
+<div *ngIf="recipe; else noRecipeIsSelected">
+    <div class="row mt-3">
+        <div class="col-12">
+            <div class="card">
+                <img class="card-img-top" [src]="recipe.imagePath" alt="Card image cap">
+                <div class="card-body">
+                    <div class="dropdown" appDropdown>
+                        <button id="my-dropdown-recipe" class="btn btn-info dropdown-toggle btn-block" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manage Recipe</button>
+                        <div class="dropdown-menu" aria-labelledby="my-dropdown">
+                            <a class="dropdown-item" (click)="addIngredientsToShoppingList()" style="cursor:pointer;">To Shopping List</a>
+                            <a class="dropdown-item" [routerLink]="['edit']" >Edit Recipe</a>
+                            <a class="dropdown-item"(click)="deleteRecipe()" >Delete Recipe</a>
+                        </div>
+                    </div>
+                    <h1 class="card-title mt-3">{{recipe.name}}</h1>
+                    <p class="card-text">{{recipe.description}}</p>
+
+                    <h4>Ingredients</h4>
+                    <ul class="list-group">
+                        <li *ngFor="let ingredient of recipe.ingredients" class="list-group-item d-flex justify-content-between align-items-center">
+                          {{ingredient.name}}
+                          <span class="badge badge-info badge-pill">{{ingredient.amount}}</span>
+                        </li>
+                        
+                    </ul>
+                </div>
+          </div>
+        </div>
+    </div> 
+    
+</div>
+
+    
+
+
+<ng-template #noRecipeIsSelected > 
+</ng-template>
